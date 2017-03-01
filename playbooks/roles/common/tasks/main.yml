@@ -10,9 +10,6 @@
       paths:
         - ../vars
 
-- include_vars: group_vars/cloudera
-  when: distro == "cdh"
-
 - include_vars: group_vars/hortonworks
   when: distro == "hdp"
 
