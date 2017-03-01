@@ -136,7 +136,7 @@
 #  ignore_errors: true
 
 - name: switch off selinux permanently
-  selinux: state: disabled
+  selinux: state=disabled
   register: reboot
 
 - name: Reconfigure resolv.conf search
