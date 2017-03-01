@@ -48,7 +48,7 @@ See [INSTALL-ENV.md](../master/INSTALL-ENV.md) for installation and build instru
 
   By default, the file is expected to be: `~/.raxpub`.
 
-- When provisioning HDP on existing infrastructure edit `inventory/static` and add the nodes.
+- When provisioning HDP on existing infrastructure copy `inventory/static.template` to `inventory/static` and add the nodes.
 
 
 ## [Configuration files] (id:configuration)
