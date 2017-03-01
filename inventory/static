@@ -1,10 +1,14 @@
 [master-nodes]
-master01 ansible_host=192.168.0.2 bond_ip=172.16.0.2 ansible_user=rack ansible_ssh_pass=changeme
-#master02 ansible_host=192.168.0.2 bond_ip=172.16.0.2 ansible_user=root ansible_ssh_pass=changeme
+master01 ansible_host=olivier0.field.hortonworks.com ansible_user=centos
 
 [slave-nodes]
-slave01 ansible_host=192.168.0.3 bond_ip=172.16.0.3 ansible_user=rack ansible_ssh_pass=changeme
-slave02 ansible_host=192.168.0.4 bond_ip=172.16.0.4 ansible_user=rack ansible_ssh_pass=changeme
+slave01 ansible_host=olivier1.field.hortonworks.com ansible_user=centos
+slave02 ansible_host=olivier2.field.hortonworks.com ansible_user=centos
+slave03 ansible_host=olivier3.field.hortonworks.com ansible_user=centos
+slave04 ansible_host=olivier4.field.hortonworks.com ansible_user=centos
+slave05 ansible_host=olivier5.field.hortonworks.com ansible_user=centos
+slave06 ansible_host=olivier6.field.hortonworks.com ansible_user=centos
+slave07 ansible_host=olivier7.field.hortonworks.com ansible_user=centos
 
 [edge-nodes]
 #edge01 ansible_host=192.168.0.5 bond_ip=172.16.0.5 ansible_user=rack ansible_ssh_pass=changeme
