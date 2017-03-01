@@ -131,12 +131,12 @@
   ignore_errors: true
   when: not azure
 
-- name: Disable SELinux until reboot
-  shell: setenforce 0
-  ignore_errors: true
+#- name: Disable SELinux until reboot
+#  shell: setenforce 0
+#  ignore_errors: true
 
 - name: switch off selinux permanently
-  lineinfile: dest=/etc/selinux/config regexp=^SELINUX= line=SELINUX=disabled
+  selinux: state: disabled
   register: reboot
 
 - name: Reconfigure resolv.conf search
@@ -229,11 +229,11 @@
   include: cachedisks.yml
   when: software_raid_devices is defined
 
-- name: waiting for server to come back
-  local_action: wait_for host={{ inventory_hostname }}
-                state=started
-                port=22
-                delay=15
-                timeout=600
-  become: false
-  when: reboot|changed
+#- name: waiting for server to come back
+#  local_action: wait_for host={{ inventory_hostname }}
+#                state=started
+#                port=22
+#                delay=15
+#                timeout=600
+#  become: false
+#  when: reboot|changed
