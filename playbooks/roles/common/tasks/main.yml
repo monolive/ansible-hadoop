@@ -131,6 +131,14 @@
   ignore_errors: true
   when: not azure
 
+- name: Disable SELinux until reboot
+  shell: setenforce 0
+  ignore_errors: true
+
+- name: switch off selinux permanently
+  lineinfile: dest=/etc/selinux/config regexp=^SELINUX= line=SELINUX=disabled
+  register: ambari_installed
+
 - name: Reconfigure resolv.conf search
   lineinfile: dest={{ resolv_conf }}
               create=yes
