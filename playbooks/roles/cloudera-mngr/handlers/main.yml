@@ -1,3 +1,0 @@
----
-- name: Restart unbound
-  service: name=unbound state=restarted enabled=yes
