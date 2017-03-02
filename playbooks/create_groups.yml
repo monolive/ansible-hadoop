@@ -5,7 +5,7 @@
   gather_facts: False
   tasks:
     - name: Add all cluster nodes to the hadoop-cluster group
-      always_run: yes
+      check_mode: no
       add_host:
         name: "{{ hostvars[item].inventory_hostname }}"
         ansible_host: "{{ hostvars[item].ansible_host|default(hostvars[item].ansible_ssh_host) }}"
@@ -26,7 +26,7 @@
       when: distro == "hdp"
 
     - name: Add the last masternode to ambari-node variable group
-      always_run: yes
+      check_mode: no
       add_host:
         name: "{{ hostvars[item].inventory_hostname }}"
         ansible_host: "{{ hostvars[item].ansible_host|default(hostvars[item].ansible_ssh_host) }}"
