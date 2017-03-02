@@ -137,7 +137,7 @@
 
 - name: switch off selinux permanently
   selinux: state=disabled
-  register: reboot
+  register: toreboot
 
 - name: Reconfigure resolv.conf search
   lineinfile: dest={{ resolv_conf }}
@@ -228,6 +228,13 @@
 - name: Include cachedisks.yml
   include: cachedisks.yml
   when: software_raid_devices is defined
+- name: restart machine
+  command: shutdown -r now "Ansible updates triggered"
+  async: 0
+  poll: 0
+  ignore_errors: true
+  when: toreboot|changed
+
 
 - name: waiting for server to come back
   local_action: wait_for host={{ inventory_hostname }}
@@ -236,4 +243,4 @@
                 delay=15
                 timeout=600
   become: false
-  when: reboot|changed
+  when: toreboot|changed
