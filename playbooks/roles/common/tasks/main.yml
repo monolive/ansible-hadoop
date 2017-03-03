@@ -228,9 +228,10 @@
 - name: Include cachedisks.yml
   include: cachedisks.yml
   when: software_raid_devices is defined
+
 - name: restart machine
   command: shutdown -r now "Ansible updates triggered"
-  async: 0
+  async: 1
   poll: 0
   ignore_errors: true
   when: toreboot|changed

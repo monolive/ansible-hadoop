@@ -45,6 +45,18 @@
               state=present
   notify: Restart ambari-agent
 
+- name: Copy public_hostname script in place
+  copy: src=hostname.sh dest=/var/lib/ambari-agent/hostname.sh mode=0755
+  when: ansible_system_vendor.find('OpenStack') > -1
+
+- name: Configure the Ambari agent if openstack
+  lineinfile: dest=/etc/ambari-agent/conf/ambari-agent.ini
+              line='hostname_script=/var/lib/ambari-agent/hostname.sh'
+              insertafter='^[agent]'
+              state=present
+  when: ansible_system_vendor.find('OpenStack') > -1
+  notify: Restart ambari-agent
+
 - meta: flush_handlers
 
 - name: Make sure ambari-agent is running
