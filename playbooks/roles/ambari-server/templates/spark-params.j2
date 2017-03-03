@@ -7,11 +7,6 @@ from resource_management.libraries.script.script import Script
 config = Script.get_config()
 
 spark_master = config['clusterHostInfo']['sparks_master_hosts'][0]
-tachyon_master_hosts = config['clusterHostInfo'].get('tachyon_master_hosts', [])
-if len(tachyon_master_hosts) > 0:
-    tachyon_master = config['clusterHostInfo']['tachyon_master_hosts'][0]
-else:
-    tachyon_master = "localhost"
 hdfs_root = 'hdfs://{{ hostvars[groups['master-nodes'][1]]['ansible_hostname'] }}'
 
 node_hostname = socket.getfqdn()

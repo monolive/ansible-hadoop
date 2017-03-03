@@ -16,7 +16,6 @@ install_hbase: false
 install_storm: false
 install_kafka: false
 install_falcon: false
-tachyon_service: false
 
 data_disks_filesystem: xfs
 configure_firewall: false
@@ -26,15 +25,6 @@ custom_cluster_template: cluster-template-custom.j2
 custom_repo: false
 custom_repo_url: 'http://public-repo-1.hortonworks.com/HDP/centos7/2.x/updates/2.5.3.0'
 custom_repo_target: 'api/v1/stacks/HDP/versions/2.5/operating_systems/redhat7/repositories/HDP-2.5'
-
-#requires HDP2.3 RHEL/CentOS 6
-#available in 2 and 3 masternode blueprints
-arcadia: false
-arcadia_config:
-  archive_file: ARCADIA-ENTERPRISE-3.1.0.0_1464326436-1.tar.gz
-  archive_src: 'http://get.arcadiadata.com'
-  archive_dest: '/var/lib/ambari-server/resources/stacks/HDP/2.4/services/'
-  hdfs-site: 'dfs.datanode.hdfs-blocks-metadata.enabled'
 
 hdfs:
   dfs_replication: 3
