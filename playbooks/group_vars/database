@@ -1,0 +1,5 @@
+---
+###############################################################
+# use template file for example references                    # 
+# ~/ansible-hadoop/playbooks/group_vars/mysql-templates       #
+###############################################################

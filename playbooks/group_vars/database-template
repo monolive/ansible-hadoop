@@ -1,0 +1,23 @@
+-- 
+# Database username / pwd
+
+# Ambari
+ambari_db: ambari
+ambari_user: ambari
+ambari_password: hadoop
+
+
+# Hive
+hive_db: hive
+hive_user: hive
+hive_password: hadoop
+
+# Oozie
+oozie_db: oozie
+oozie_user: oozie
+oozie_password: hadoop
+
+# Ranger
+ranger_db: ranger
+ranger_user: ranger
+ranger_password: hadoop
