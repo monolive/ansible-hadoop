@@ -1,6 +1,20 @@
 ---
 - include: create_groups.yml
 
+- name: Apply the db-server role to DB server
+  hosts: db-server
+  become: yes
+  pre_tasks:
+    - name: Show hadoop-cluster info
+      debug: var=hostvars[inventory_hostname]
+      when: debug
+
+    - name: include hortonworks vars
+      include_vars: group_vars/db-server
+  
+  roles:
+    - db-server
+
 - name: Apply the ambari-agent role to all nodes
   hosts: hadoop-cluster
   any_errors_fatal: true
