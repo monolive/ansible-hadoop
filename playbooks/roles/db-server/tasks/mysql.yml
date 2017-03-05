@@ -1,0 +1,43 @@
+---
+  - name: install mysql-server
+    yum: name={{ item }} state=present
+    with_items:
+      - mysql-server
+      - MySQL-python
+
+  - name: change max allowed packet
+    #lineinfile: dest=/etc/my.cnf insertafter=^symbolic-links line=max_allowed_packet=32M
+    mysql_variables: 
+      variable: max_allowed_packet
+      value: 32M
+      login_host: {{ hostvars[groups['database'][0]] }}
+
+  - name: restart mysql-server
+    service: name=mysqld state=started enabled=on
+
+# Create database & user
+  - name: create & configure oozie DB
+    mysql_db: name={{ oozie_db }} state=present
+  - name: create & configure oozie user - server fqdn
+    {% if groups['master-nodes']|length > 2 -%}
+    mysql_user: name={{ oozie_user }} password={{ oozie_password }} priv=*.*:ALL host={{ hostvars[groups['ambari-node'][0]]['ansible_nodename'] | lower }} state=present
+    {% else %}
+    mysql_user: name={{ oozie_user }} password={{ oozie_password }} priv=*.*:ALL host={{ hostvars[groups['master-nodes']|sort|first]['ansible_nodename'] | lower }} state=present
+    {% endif -%}
+    #mysql_user: name={{ oozie_user }} password={{ oozie_password }} priv=*.*:ALL host=% state=present
+  - name: create & configure ambari DB
+    mysql_db: name={{ ambari_db }} state=present
+  - name: create & configure ambari user
+    mysql_user: name={{ ambari_user }} password={{ ambari_password }} priv=*.*:ALL host={{ hostvars[groups['ambari-node'][0]]['ansible_nodename'] | lower }} state=present
+    #mysql_user: name={{ ambari_user }} password={{ ambari_password }} priv=*.*:ALL host=% state=present
+  - name: create & configure hive DB
+    mysql_db: name={{ hive_db }} state=present
+  - name: create & configure hive user - server fqdn
+    mysql_user: name={{ hive_user }} password={{ hive_password }} priv=*.*:ALL host={{ hostvars[groups['master-nodes']|sort|first]['ansible_nodename'] | lower }} state=present
+    #mysql_user: name={{ hive_user }} password={{ hive_password }} priv=*.*:ALL host=% state=present
+  - name: create & configure ranger DB
+    mysql_db: name={{ ranger_db }} state=present
+  - name: create & configure ranger user
+    mysql_user: name={{ ranger_user }} password={{ ranger_password }} priv=*.*:ALL host={{ hostvars[groups['master-nodes']|sort|first]['ansible_nodename'] | lower }} state=present
+    #mysql_user: name={{ ranger_user }} password={{ ranger_password }} priv=*.*:ALL host=% state=present
+
